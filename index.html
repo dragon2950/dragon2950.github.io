@@ -58,7 +58,6 @@
       border: 1px solid #999;
     }
 
-    /* 🔹 왼쪽 항목명 가운데 정렬 적용 */
     th {
       width: 28%;
       background-color: #efefef;
@@ -148,7 +147,8 @@
 
         <tr>
           <th>게시일</th>
-          <td id="publishDate">(표준시 불러오는 중...)</td>
+          <!-- 🔹 하드코딩 -->
+          <td>2025.12.23</td>
         </tr>
       </table>
 
@@ -165,10 +165,6 @@
       const x = new Date(d);
       x.setHours(0, 0, 0, 0);
       return x;
-    }
-
-    function formatDateOnly(d) {
-      return `${d.getFullYear()}년 ${d.getMonth() + 1}월 ${d.getDate()}일`;
     }
 
     function formatDateTime(d) {
@@ -190,7 +186,6 @@
     }
 
     function render(nowKST, label) {
-      document.getElementById("publishDate").textContent = formatDateOnly(nowKST);
       const dayCount = computeDayCount(nowKST);
       document.getElementById("systemTime").innerHTML =
         `${label}: ${formatDateTime(nowKST)} <strong>[제 ${dayCount}일차]</strong>`;
