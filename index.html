@@ -58,12 +58,13 @@
       border: 1px solid #999;
     }
 
+    /* 🔹 왼쪽 항목명 가운데 정렬 적용 */
     th {
       width: 28%;
       background-color: #efefef;
-      text-align: left;
+      text-align: center;
+      vertical-align: middle;
       padding: 10px;
-      vertical-align: top;
       font-weight: 600;
     }
 
@@ -99,7 +100,6 @@
 
       <h2>법인 해산 안내</h2>
 
-      <!-- 보수적 안내 문구 (법원·세무서 대응용) -->
       <div class="meta-note">
         본 페이지는 법인 해산 사실을 알리기 위한 <strong>안내용 게시물</strong>입니다.
         해산에 따른 법적 절차의 진행 및 효력은 관계 법령과
@@ -120,7 +120,6 @@
           </td>
         </tr>
 
-        <!-- 🔹 요청하신 채권자 안내 문구 삽입 -->
         <tr>
           <th>채권자 안내</th>
           <td class="creditor-notice">
@@ -159,19 +158,9 @@
   </div>
 
   <script>
-    /**********************************************************
-     * 설정값
-     **********************************************************/
-    // 게시 기준일 (오늘을 1일차로 계산)
-    // YYYY-MM-DD 형식
     const BASE_PUBLISH_DATE = "2025-12-23";
-
-    // 표준시 API (Asia/Seoul)
     const TIME_API_URL = "https://worldtimeapi.org/api/timezone/Asia/Seoul";
 
-    /**********************************************************
-     * 유틸 함수
-     **********************************************************/
     function startOfDay(d) {
       const x = new Date(d);
       x.setHours(0, 0, 0, 0);
@@ -207,21 +196,16 @@
         `${label}: ${formatDateTime(nowKST)} <strong>[제 ${dayCount}일차]</strong>`;
     }
 
-    /**********************************************************
-     * 표준시 호출 → 실패 시 로컬 시간 fallback
-     **********************************************************/
     fetch(TIME_API_URL)
       .then(res => {
         if (!res.ok) throw new Error("Time API error");
         return res.json();
       })
       .then(data => {
-        const nowKST = new Date(data.datetime);
-        render(nowKST, "국가 표준시 기준 시각");
+        render(new Date(data.datetime), "국가 표준시 기준 시각");
       })
       .catch(() => {
-        const nowLocal = new Date();
-        render(nowLocal, "현재 시스템 기준 시각");
+        render(new Date(), "현재 시스템 기준 시각");
       });
   </script>
 
