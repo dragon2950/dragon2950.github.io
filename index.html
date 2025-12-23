@@ -2,9 +2,12 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>법인 해산 및 채권자 안내</title>
   <style>
     body {
+      margin: 0;
+      padding: 0;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
                    Roboto, "Noto Sans KR", Arial, sans-serif;
       background-color: #ffffff;
@@ -14,10 +17,11 @@
     /* 외부 1차 박스 */
     .outer-box {
       max-width: 820px;
-      margin: 60px auto;
+      margin: 48px auto;
       padding: 18px;
       border: 3px solid #444;
       background-color: #f5f5f5;
+      box-sizing: border-box;
     }
 
     /* 내부 2차 박스 */
@@ -25,17 +29,29 @@
       padding: 24px;
       border: 2px solid #777;
       background-color: #ffffff;
+      box-sizing: border-box;
     }
 
     h2 {
-      margin-top: 0;
+      margin: 0 0 10px 0;
       text-align: center;
+      letter-spacing: -0.2px;
+    }
+
+    .subtitle {
+      margin: 0 0 18px 0;
+      text-align: center;
+      color: #555;
+      font-size: 0.95rem;
+      line-height: 1.4;
     }
 
     table {
       width: 100%;
       border-collapse: collapse;
-      margin-top: 20px;
+      margin-top: 12px;
+      table-layout: fixed;
+      word-break: break-word;
     }
 
     table, th, td {
@@ -43,11 +59,12 @@
     }
 
     th {
-      width: 25%;
+      width: 28%;
       background-color: #efefef;
       text-align: left;
       padding: 10px;
       vertical-align: top;
+      font-weight: 600;
     }
 
     td {
@@ -55,18 +72,34 @@
       vertical-align: top;
     }
 
-    /* 채권자 안내 전용 스타일 */
     .creditor-notice {
       font-size: 12pt;
       font-weight: normal;
-      line-height: 1.6;
+      line-height: 1.7;
+    }
+
+    .notice-box {
+      margin-top: 14px;
+      padding: 12px 14px;
+      border: 1px dashed #999;
+      background: #fafafa;
+      font-size: 0.95rem;
+      line-height: 1.5;
+      color: #333;
     }
 
     .system-time {
-      margin-top: 26px;
+      margin-top: 18px;
       font-size: 0.9em;
       color: #555;
       text-align: right;
+    }
+
+    @media (max-width: 520px) {
+      .outer-box { margin: 18px auto; padding: 12px; }
+      .inner-box { padding: 16px; }
+      th { width: 36%; }
+      .creditor-notice { font-size: 1rem; }
     }
   </style>
 </head>
@@ -76,6 +109,9 @@
     <div class="inner-box">
 
       <h2>법인 해산 및 채권자 안내</h2>
+      <p class="subtitle">
+        본 페이지는 홈페이지 안내용이며, 채권자 보호를 위한 법정 절차(관보 게재 등)는 관계 법령에 따라 별도로 진행될 수 있습니다.
+      </p>
 
       <table>
         <tr>
@@ -87,23 +123,19 @@
           <th>해산 결정</th>
           <td>
             본 회사는 <strong>2025년 12월 19일</strong> 개최된 주주회의 결의에 따라
-            2025년 12월 19일부로 법인 해산을 결정하였습니다.
+            <strong>2025년 12월 19일</strong>부로 법인 해산을 결정하였습니다.
           </td>
         </tr>
 
         <tr>
           <th>채권자 안내</th>
           <td class="creditor-notice">
-            본 안내는 <strong>상법 제535조 제1항</strong>에 따른
-            채권자 보호절차에 의한 공고입니다.
+            본 안내는 <strong>상법 제535조 제1항</strong>에 따른 채권자 보호절차에 관한 안내입니다.
             <br><br>
             본 회사에 대하여 채권을 가지신 분께서는
-            <strong>본 게시일로부터 2개월 이내</strong>에
-            아래 청산인에게 채권을 신고하여 주시기 바랍니다.
+            <strong>본 게시일로부터 2개월 이내</strong>에 아래 청산인에게 채권을 신고하여 주시기 바랍니다.
             <br><br>
-            위 기간 내에 신고하지 아니한 채권은
-            상법 등 관계 법령에 따라
-            청산 절차에서 제외될 수 있습니다.
+            위 기간 내에 신고하지 아니한 채권은 관계 법령에 따라 청산 절차에서 제외될 수 있습니다.
           </td>
         </tr>
 
@@ -111,18 +143,22 @@
           <th>청산인</th>
           <td>
             성명: 김수용<br>
-            전화번호: 010 - 4933 - 2950<br>
-            이메일:
-            <a href="mailto:dagon2950@hanmail.net">dagon2950@hanmail.net</a><br>
+            전화번호: 010-4933-2950<br>
+            이메일: <a href="mailto:dagon2950@hanmail.net">dagon2950@hanmail.net</a><br>
             주소: 서울 양천구 중앙로 30길 10, 302호
           </td>
         </tr>
 
         <tr>
           <th>게시일</th>
-          <td>2025년 12월 23일</td>
+          <td id="publishDate">(표준시 불러오는 중...)</td>
         </tr>
       </table>
+
+      <div class="notice-box">
+        <strong>참고:</strong> 본 페이지의 “게시일/일차” 표시는 표준시(Time API) 기반의 참고 정보이며,
+        법정 기산점은 실제 진행되는 공고(관보 등) 및 관계 법령에 따를 수 있습니다.
+      </div>
 
       <div class="system-time" id="systemTime"></div>
 
@@ -130,17 +166,85 @@
   </div>
 
   <script>
-    const now = new Date();
-    const options = {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit',
-      second: '2-digit'
-    };
-    document.getElementById("systemTime").textContent =
-      "현재 시스템 기준 시각: " + now.toLocaleString('ko-KR', options);
+    /******************************************************************
+     * 설정값
+     ******************************************************************/
+    // ✅ "오늘을 1일차"로 삼고 싶은 '기준 게시일'을 여기에 고정해 두세요.
+    //    예: 실제 홈페이지를 처음 올린 날이 2025-12-23이면 그대로 둡니다.
+    //    형식: YYYY-MM-DD
+    const BASE_PUBLISH_DATE = "2025-12-23";
+
+    // ✅ 표준시(Asia/Seoul) Time API
+    const TIME_API_URL = "https://worldtimeapi.org/api/timezone/Asia/Seoul";
+
+    /******************************************************************
+     * 유틸
+     ******************************************************************/
+    function pad2(n) { return String(n).padStart(2, "0"); }
+
+    function formatKoreanDateOnly(d) {
+      // 예: 2025년 12월 23일
+      return `${d.getFullYear()}년 ${d.getMonth() + 1}월 ${d.getDate()}일`;
+    }
+
+    function formatKoreanDateTime(d) {
+      const options = {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit'
+      };
+      return d.toLocaleString('ko-KR', options);
+    }
+
+    function startOfDay(d) {
+      const x = new Date(d);
+      x.setHours(0, 0, 0, 0);
+      return x;
+    }
+
+    function computeDayCount(nowKST) {
+      // 오늘을 1일차로: (오늘 0시 - 기준일 0시) / 1일 + 1
+      const base = startOfDay(new Date(`${BASE_PUBLISH_DATE}T00:00:00+09:00`));
+      const today = startOfDay(nowKST);
+      const diffMs = today - base;
+      const days = Math.floor(diffMs / (1000 * 60 * 60 * 24)) + 1;
+      return Math.max(1, days);
+    }
+
+    function render(nowKST, sourceLabel) {
+      const dayCount = computeDayCount(nowKST);
+
+      // 게시일: "현재 표준시 날짜"로 자동 표시
+      document.getElementById("publishDate").textContent = formatKoreanDateOnly(nowKST);
+
+      // 시스템(표준시) 시각 + [제 X일차] 굵게
+      document.getElementById("systemTime").innerHTML =
+        `${sourceLabel}: ${formatKoreanDateTime(nowKST)} ` +
+        `<strong>[제 ${dayCount}일차]</strong>`;
+    }
+
+    /******************************************************************
+     * 1) 표준시 API로 현재 시각 가져오기
+     * 2) 실패 시: 로컬 시간(브라우저)로 대체
+     ******************************************************************/
+    fetch(TIME_API_URL)
+      .then(res => {
+        if (!res.ok) throw new Error("Time API response not ok");
+        return res.json();
+      })
+      .then(data => {
+        // data.datetime 예: "2025-12-23T10:12:45.123456+09:00"
+        const nowKST = new Date(data.datetime);
+        render(nowKST, "국가 표준시 기준 시각(참고)");
+      })
+      .catch(() => {
+        // 표준시 API가 막히면 로컬(브라우저) 시간으로 fallback
+        const nowLocal = new Date();
+        render(nowLocal, "현재 시스템 기준 시각(참고)");
+      });
   </script>
 
 </body>
