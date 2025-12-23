@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>법인 해산 및 채권자 안내</title>
+  <title>법인 해산 안내</title>
   <style>
     body {
       margin: 0;
@@ -37,17 +37,13 @@
     }
 
     .meta-note {
-      margin: 0 0 14px 0;
-      font-size: 0.92rem;
+      margin-bottom: 16px;
+      padding: 12px 14px;
+      border: 1px dashed #999;
+      background: #fafafa;
+      font-size: 0.95rem;
       line-height: 1.6;
       color: #333;
-      background: #fafafa;
-      border: 1px dashed #999;
-      padding: 10px 12px;
-    }
-
-    .meta-note strong {
-      font-weight: 700;
     }
 
     table {
@@ -76,26 +72,8 @@
       vertical-align: top;
     }
 
-    .creditor-notice {
-      font-size: 12pt;
-      line-height: 1.75;
-    }
-
-    .countdown {
-      margin-top: 12px;
-      padding: 12px 14px;
-      border: 1px solid #999;
-      background: #fcfcfc;
-      line-height: 1.6;
-    }
-
-    .countdown .big {
-      font-size: 1.05rem;
-      font-weight: 700;
-    }
-
     .system-time {
-      margin-top: 16px;
+      margin-top: 18px;
       font-size: 0.9em;
       color: #555;
       text-align: right;
@@ -105,7 +83,6 @@
       .outer-box { margin: 18px auto; padding: 12px; }
       .inner-box { padding: 16px; }
       th { width: 36%; }
-      .creditor-notice { font-size: 1rem; }
     }
   </style>
 </head>
@@ -114,14 +91,14 @@
   <div class="outer-box">
     <div class="inner-box">
 
-      <h2>법인 해산 및 채권자 안내</h2>
+      <h2>법인 해산 안내</h2>
 
-      <!-- 보수적(법원/세무서 대응용) 안내 문구: 핵심은 "참고용" + "최종 기준은 법정 공고/법령" -->
-      <p class="meta-note">
-        <strong>안내(중요)</strong> 본 페이지는 채권자께서 참고하실 수 있도록 제공되는 <strong>안내용 게시물</strong>입니다.
-        채권자 보호절차의 <strong>법정 기산점</strong> 및 절차의 효력은 실제 진행되는 <strong>법정 공고(관보 등)</strong> 및
-        관계 법령, 관할 기관의 판단에 따를 수 있습니다. 본 페이지의 날짜/카운트 표시는 <strong>참고용</strong>입니다.
-      </p>
+      <!-- 보수적 안내 문구 (법원·세무서 대응용) -->
+      <div class="meta-note">
+        본 페이지는 법인 해산 사실을 알리기 위한 <strong>안내용 게시물</strong>입니다.
+        해산에 따른 법적 절차의 진행 및 효력은 관계 법령과
+        실제 진행되는 법정 절차 및 관할 기관의 판단에 따를 수 있습니다.
+      </div>
 
       <table>
         <tr>
@@ -134,19 +111,6 @@
           <td>
             본 회사는 <strong>2025년 12월 19일</strong> 개최된 주주회의 결의에 따라
             <strong>2025년 12월 19일</strong>부로 법인 해산을 결정하였습니다.
-          </td>
-        </tr>
-
-        <tr>
-          <th>채권자 안내</th>
-          <td class="creditor-notice">
-            본 회사에 대하여 채권을 가지신 분께서는
-            <strong>채권자 보호절차에 따라</strong> 아래 청산인에게 채권을 신고하여 주시기 바랍니다.
-            <br><br>
-            신고와 관련하여 필요한 경우, 계약서·세금계산서·거래명세서·입금증 등 <strong>채권을 소명할 수 있는 자료</strong>를 함께 제출해 주시기 바랍니다.
-            <br><br>
-            신고 기간 및 청산 절차의 효력은 관계 법령에 따라 진행되며,
-            <strong>법정 공고(관보 등)에서 정한 기간 내 신고가 없는 채권</strong>은 관계 법령에 따라 청산 절차에서 제외될 수 있습니다.
           </td>
         </tr>
 
@@ -166,15 +130,6 @@
         </tr>
       </table>
 
-      <!-- D-DAY 카운트 영역 -->
-      <div class="countdown" id="countdownBox">
-        <div class="big">채권 신고 마감 D-DAY: <span id="dday">(계산 중...)</span></div>
-        <div>신고 마감(참고): <span id="deadlineDate">-</span> (KST 기준)</div>
-        <div style="font-size:0.92rem;color:#555;">
-          ※ 본 D-DAY는 본 페이지 게시일(표준시) 기준 <strong>참고용</strong>으로 계산됩니다. 최종 기산점/기간은 법정 공고 및 관계 법령에 따를 수 있습니다.
-        </div>
-      </div>
-
       <div class="system-time" id="systemTime"></div>
 
     </div>
@@ -184,16 +139,12 @@
     /**********************************************************
      * 설정값
      **********************************************************/
-    // ✅ 게시 기준일(오늘을 1일차로 계산). 보통 "최초 게시한 날"로 고정.
-    //    형식: YYYY-MM-DD
+    // 게시 기준일 (오늘을 1일차로 계산)
+    // YYYY-MM-DD 형식
     const BASE_PUBLISH_DATE = "2025-12-23";
 
-    // ✅ 표준시 API (Asia/Seoul)
+    // 표준시 API (Asia/Seoul)
     const TIME_API_URL = "https://worldtimeapi.org/api/timezone/Asia/Seoul";
-
-    // ✅ 마감 기준: "게시일로부터 2개월"
-    //    법정 기산점은 별도일 수 있으므로, 본 값은 페이지 내 참고용 표시입니다.
-    const DEADLINE_MONTHS_AFTER_PUBLISH = 2;
 
     /**********************************************************
      * 유틸 함수
@@ -219,7 +170,6 @@
       });
     }
 
-    // 오늘을 1일차로 계산
     function computeDayCount(nowKST) {
       const base = startOfDay(new Date(`${BASE_PUBLISH_DATE}T00:00:00+09:00`));
       const today = startOfDay(nowKST);
@@ -227,67 +177,11 @@
       return Math.max(1, Math.floor(diffMs / (1000 * 60 * 60 * 24)) + 1);
     }
 
-    // 게시일(표준시 nowKST의 날짜) 기준으로 "2개월 후 마감일"을 계산 (KST 기준)
-    function computeDeadlineFromPublish(publishKST) {
-      // publishKST의 날짜(0시) 기준
-      const base = startOfDay(publishKST);
-
-      // 2개월 후 같은 '일자'를 시도 (예: 1/31 + 2개월 = 3/31이 없으면 JS가 다음 달로 넘길 수 있음)
-      // 보수적으로는 "해당 월의 마지막 날로 보정"하는 방식이 안정적.
-      const y = base.getFullYear();
-      const m = base.getMonth(); // 0~11
-      const d = base.getDate();
-
-      const target = new Date(base);
-      target.setMonth(m + DEADLINE_MONTHS_AFTER_PUBLISH);
-
-      // 월 이동 후 날짜가 밀려버리는 케이스 보정:
-      // 예: 1/31에 setMonth(2) 하면 3/03 같은 형태로 튈 수 있음
-      // => 목표 월의 마지막 날을 계산해 min(d, lastDay)로 재설정
-      const targetY = target.getFullYear();
-      const targetM = target.getMonth();
-      const lastDay = new Date(targetY, targetM + 1, 0).getDate();
-      target.setDate(Math.min(d, lastDay));
-
-      // 마감일을 "해당일 23:59:59"로 잡아서 D-day 계산을 직관적으로
-      target.setHours(23, 59, 59, 999);
-      return target;
-    }
-
-    // D-DAY: 마감일까지 남은 '일'을 KST 날짜 기준으로 계산
-    function computeDday(nowKST, deadlineKST) {
-      // "오늘 0시" ~ "마감일 23:59:59" 기준으로 남은 날짜를 계산
-      const today0 = startOfDay(nowKST);
-      const deadline0 = startOfDay(deadlineKST);
-      const diffDays = Math.ceil((deadline0 - today0) / (1000 * 60 * 60 * 24));
-      return diffDays;
-    }
-
     function render(nowKST, label) {
-      // 게시일: 표준시 기준 '오늘 날짜'
       document.getElementById("publishDate").textContent = formatDateOnly(nowKST);
-
-      // 시스템 시각 + [제 X일차]
       const dayCount = computeDayCount(nowKST);
       document.getElementById("systemTime").innerHTML =
         `${label}: ${formatDateTime(nowKST)} <strong>[제 ${dayCount}일차]</strong>`;
-
-      // D-DAY 계산
-      const deadline = computeDeadlineFromPublish(nowKST);
-      document.getElementById("deadlineDate").textContent = formatDateOnly(deadline) + " 23:59:59";
-
-      const dday = computeDday(nowKST, deadline);
-
-      // 표시 규칙
-      // D-10, D-1, D-Day(0), D+N(지남)
-      const ddayEl = document.getElementById("dday");
-      if (dday > 0) {
-        ddayEl.textContent = `D-${dday}`;
-      } else if (dday === 0) {
-        ddayEl.textContent = "D-Day";
-      } else {
-        ddayEl.textContent = `D+${Math.abs(dday)}`;
-      }
     }
 
     /**********************************************************
